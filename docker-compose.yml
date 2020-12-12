@@ -1,0 +1,18 @@
+version: "3"
+ 
+services:
+  jenkins:
+    user: root
+    image: "jenkins/jenkins"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /usr/local/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - mynet
+    
+networks:
+  mynet:
+    driver: bridge
