@@ -7,6 +7,7 @@ The stack includes:
 * Sonarqube Developer Edition (SAST tool, license needed)
 * OWASP ZAP (Pentesting tool)
 * Aquasec/trivy (docker image analysis)
+* Docker bench security (Docker container and docker daemon analysis)
 * ClamAV (Malware analysis tool)
 
 ## Continuous Integration tool
@@ -50,6 +51,15 @@ If you want to analyze a docker image that is not pushed in the repository (it e
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ -it my_aquasectrivy bash
 ```
 and then you can run the *trivy* command as explained before.
+
+## Docker container and docker daemon analysis
+To analyze docker containers in production and docker daemon configuration the stack includes the tool docker security bench. 
+The tests are all automated, and are inspired by the CIS Docker Benchmark v1.2.0.
+To execute a check of all your containers and docker daemon configuration you can run the next command:
+```bash
+cd dockerbench
+./check.sh
+```
 
 ## Malware analysis
 Malware analysis are run with clamAV engine. 
