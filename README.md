@@ -1,6 +1,6 @@
 # Continuous Integration Tool Kit
 
-This docker stack helps you to deploy a Jenkins pipeline with security analysis:
+This docker stack helps you to deploy a Jenkins pipeline with security analysis.
 The stack includes:
 * Jenkins
 * Java 11
