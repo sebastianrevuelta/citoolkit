@@ -6,6 +6,7 @@ The stack includes:
 * Java 11
 * Sonarqube Developer Edition (SAST tool, license needed)
 * OWASP ZAP (Pentesting tool)
+* Aquasec/trivy (docker image analysis)
 * ClamAV (Malware analysis tool)
 
 ## Continuous Integration tool
@@ -30,6 +31,26 @@ OWASP ZAP is running at:
 ```bash
 htttp://localhost:8081/zap
 ```
+
+## Docker image analysis
+To analyze docker image analysis the stack includes the tool aquasec/trivy.
+The steps to run the tool are:
+```bash
+cd aquasectrivy
+docker build -t my_aquasectrivy .
+docker run -it my_aquasectrivy bash
+```
+It opens a command shell and we can execute the command:
+```bash
+trivy {MY_DOCKER_IMAGE}
+example: trivy sebastianrevuelta/chess-game:latest
+```
+If you want to analyze a docker image that is not pushed in the repository (it exists only at local level) then run the command:
+```bash
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ -it my_aquasectrivy bash
+```
+and then you can run the *trivy* command as explained before.
+
 ## Malware analysis
 Malware analysis are run with clamAV engine. 
 clamAV is inside remnux distro (docker image).

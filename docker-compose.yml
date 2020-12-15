@@ -1,6 +1,7 @@
 version: "3"
  
 services:
+
   jenkins:
     user: root
     image: "jenkins/jenkins:jdk11"
@@ -12,6 +13,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - mynet
+      
   sonarqube:
     image: "sonarqube:developer"
     ports:
@@ -27,6 +29,7 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+      
   db:
     image: postgres
     networks:
@@ -43,6 +46,7 @@ services:
      - .:/home/remnux/files
     networks:
       - mynet
+      
   owaspzap:
     user: zap
     image: owasp/zap2docker-stable
@@ -52,6 +56,15 @@ services:
     command: zap-webswing.sh
     networks:
       - mynet
+      
+  aquasectrivy:
+    image: my_aquasectrivy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/Library/Caches:/root/.cache/
+    networks:
+      - mynet
+
 networks:
   mynet:
     driver: bridge
