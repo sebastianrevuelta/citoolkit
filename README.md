@@ -10,6 +10,12 @@ The stack includes:
 * Docker bench security (Docker container and docker daemon analysis)
 * ClamAV (Malware analysis tool)
 
+## Deploy tools
+Just run:
+```bash
+./run.sh
+```
+
 ## Continuous Integration tool
 Jenkins is running at:
 ```bash
