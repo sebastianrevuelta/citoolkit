@@ -37,6 +37,12 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
+  remnux:
+    image: remnux/remnux-distro
+    volumes:
+     - .:/home/remnux/files
+    networks:
+      - mynet
 networks:
   mynet:
     driver: bridge
