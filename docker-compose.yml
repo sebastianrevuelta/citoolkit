@@ -43,6 +43,15 @@ services:
      - .:/home/remnux/files
     networks:
       - mynet
+  owaspzap:
+    user: zap
+    image: owasp/zap2docker-stable
+    ports:
+      - "8081:8080"
+      - "8090:8090"
+    command: zap-webswing.sh
+    networks:
+      - mynet
 networks:
   mynet:
     driver: bridge

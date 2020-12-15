@@ -4,8 +4,9 @@ This docker stack helps you to deploy a Jenkins pipeline with security analysis.
 The stack includes:
 * Jenkins
 * Java 11
-* Sonarqube Developer Edition (License needed)
-* ClamAV
+* Sonarqube Developer Edition (SAST tool, license needed)
+* OWASP ZAP (Pentesting tool)
+* ClamAV (Malware analysis tool)
 
 ## Continuous Integration tool
 Jenkins is running at:
@@ -21,6 +22,13 @@ Sonarqube is running at:
 htttp://localhost:9000
 ```
 You can create your projects and run analysis, all the information is stored in a postgresql database.
+
+## Pentesting analysis
+Pentesting analysis are run with OWASP ZAP tool.
+OWASP ZAP is running at:
+```bash
+htttp://localhost:8081/zap
+```
 
 ## Malware analysis
 Malware analysis are run with clamAV engine. 
