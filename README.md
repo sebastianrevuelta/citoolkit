@@ -4,7 +4,7 @@ This docker stack helps you to deploy a Jenkins pipeline with security analysis.
 The stack includes:
 * Jenkins
 * Java 11
-* Sonarqube Developer Edition (SAST tool, license needed)
+* Sonarqube Community Edition (Static analysis)
 * OWASP ZAP (Pentesting tool)
 * Aquasec/trivy (docker image analysis)
 * Docker bench security (Docker container and docker daemon analysis)
@@ -13,7 +13,9 @@ The stack includes:
 ## Deploy tools
 Just run:
 ```bash
-./run.sh
+sudo sysctl -w vm.max_map_count=262144 ## needed to deploy sonarqube
+docker build -t my_aquasectrivy -f ./aquasectrivy/Dockerfile .
+docker-compose up -d
 ```
 
 ## Continuous Integration tool
@@ -24,7 +26,7 @@ htttp://localhost:8080
 You can create your projects and pipelines. All the information is persisted as there is a specific volume for that.
 
 ## SAST analysis
-SAST analysis are run with Sonarqube developer edition (so you will need a license for that).
+SAST analysis are run with Sonarqube community edition.
 Sonarqube is running at:
 ```bash
 htttp://localhost:9000

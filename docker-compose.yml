@@ -15,7 +15,7 @@ services:
       - mynet
       
   sonarqube:
-    image: "sonarqube:developer"
+    image: "sonarqube:community"
     ports:
       - "9000:9000"
     networks:
