@@ -5,6 +5,7 @@ The stack includes:
 * Jenkins
 * Java 11
 * Sonarqube Community Edition (Static analysis)
+* Owasp Dependency Track (Software Composition analysis)
 * OWASP ZAP (Pentesting tool)
 * Aquasec/trivy (docker image analysis)
 * Docker bench security (Docker container and docker daemon analysis)
@@ -32,6 +33,14 @@ Sonarqube is running at:
 htttp://localhost:9000
 ```
 You can create your projects and run analysis, all the information is persisted in a postgresql database.
+
+## SCA analysis
+SCA analysis are run with Owasp Dependency Track.
+Owasp Dependency Track is running at:
+```bash
+htttp://localhost:8180
+```
+You can create your projects and run analysis, all the information is persisted.
 
 ## Pentesting analysis
 Pentesting analysis are run with OWASP ZAP tool.
