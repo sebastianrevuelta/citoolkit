@@ -65,6 +65,47 @@ services:
     networks:
       - mynet
 
+  owaspdeptrack:
+    image: owasp/dependency-track
+    volumes:
+      - dependency-track:/opt/dependency-track/data
+    ports:
+      - "8180:8080"
+      - "8181:8081"
+    networks:
+      - mynet
+#####################################################
+# This Docker Compose file contains two services
+#    Dependency-Track API Server
+#    Dependency-Track FrontEnd
+#####################################################
+  # dtrack-apiserver:
+  #   image: dependencytrack/apiserver
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 12288m
+  #       reservations:
+  #         memory: 8192m
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - '8181:8080'
+  #   volumes:
+  #     - 'dependency-track:/opt/dependency-track/data'
+  #   restart: unless-stopped
+
+  # dtrack-frontend:
+  #   image: dependencytrack/frontend
+  #   depends_on:
+  #     - dtrack-apiserver
+  #   environment:
+  #     - API_BASE_URL=http://localhost:8180
+  #   ports:
+  #     - "8180:8080"
+  #   restart: unless-stopped
+
+
 networks:
   mynet:
     driver: bridge
@@ -75,4 +116,5 @@ volumes:
   sonarqube_bundled-plugins:
   postgresql:
   postgresql_data:
+  dependency-track:
 
