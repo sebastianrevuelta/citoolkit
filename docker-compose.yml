@@ -21,7 +21,7 @@ services:
     networks:
      - mynet
     environment:
-      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+      - sonar.jdbc.url=jdbc:postgresql://sonarqube_db:5432/sonar
       - sonar.jdbc.username=sonar
       - sonar.jdbc.password=sonar
     volumes:
@@ -30,7 +30,7 @@ services:
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
       
-  db:
+  sonarqube_db:
     image: postgres
     networks:
       - mynet
@@ -40,6 +40,7 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
+
   remnux:
     image: remnux/remnux-distro
     volumes:
@@ -65,45 +66,44 @@ services:
     networks:
       - mynet
 
-  owaspdeptrack:
-    image: owasp/dependency-track
-    volumes:
-      - dependency-track:/opt/dependency-track/data
-    ports:
-      - "8180:8080"
-      - "8181:8081"
-    networks:
-      - mynet
-#####################################################
-# This Docker Compose file contains two services
-#    Dependency-Track API Server
-#    Dependency-Track FrontEnd
-#####################################################
-  # dtrack-apiserver:
-  #   image: dependencytrack/apiserver
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 12288m
-  #       reservations:
-  #         memory: 8192m
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - '8181:8080'
+  # owaspdeptrack:
+  #   image: owasp/dependency-track
   #   volumes:
-  #     - 'dependency-track:/opt/dependency-track/data'
-  #   restart: unless-stopped
-
-  # dtrack-frontend:
-  #   image: dependencytrack/frontend
-  #   depends_on:
-  #     - dtrack-apiserver
-  #   environment:
-  #     - API_BASE_URL=http://localhost:8180
+  #     - dependency-track:/opt/dependency-track/data
   #   ports:
   #     - "8180:8080"
-  #   restart: unless-stopped
+  #     - "8181:8081"
+  #   networks:
+  #     - mynet
+  dtrack-apiserver:
+     image: dependencytrack/apiserver
+     deploy:
+       resources:
+         limits:
+           memory: 12288m
+         reservations:
+           memory: 8192m
+       restart_policy:
+         condition: on-failure
+     ports:
+       - '8181:8080'
+     volumes:
+       - 'dependency-track:/opt/dependency-track/data'
+     restart: unless-stopped
+     networks:
+      - mynet
+
+  dtrack-frontend:
+     image: dependencytrack/frontend
+     depends_on:
+       - dtrack-apiserver
+     environment:
+       - API_BASE_URL=http://localhost:8180
+     ports:
+       - "8180:8080"
+     restart: unless-stopped
+     networks:
+      - mynet
 
 
 networks:
