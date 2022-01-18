@@ -38,7 +38,7 @@ You can create your projects and run analysis, all the information is persisted 
 SCA analysis are run with Owasp Dependency Track.
 Owasp Dependency Track is running at:
 ```bash
-htttp://localhost:8180
+http://localhost:8180
 ```
 You can create your projects and run analysis, all the information is persisted.
 
